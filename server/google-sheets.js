@@ -13,7 +13,7 @@ async function getDataFromSheet(sheetId) {
         const sheets = google.sheets({ version: 'v4', auth: client });
         const response = await sheets.spreadsheets.values.get({
             spreadsheetId: sheetId,
-            range: 'Sheet1' // Replace with the sheet name or range you want to retrieve data from
+            range: 'Sheet9' // Replace with the sheet name or range you want to retrieve data from
         });
         const rows = response.data.values;
         return rows;

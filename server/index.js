@@ -1,22 +1,22 @@
 const express = require('express');
 const cors = require('cors');
 const { getDataFromSheet } = require('./google-sheets');
-const { getCompanyFromSheet } = require('./company-data');
 const app = express();
 
 app.use(cors());
 
 app.get('/items/:option', async (req, res) => {
     const { option } = req.params;
-    const data = await getDataFromSheet('1zbF_72YnsjlXTbz1eHY2l8ygyOan86dVlSBdaNKlW5k');
-    const filteredData = data.filter(row => row[4].toLowerCase() === option);
-    // console.log(filteredData);
-    res.json(filteredData);
-});
-
-app.get('/company', async (req, res) => {
-    const data = await getCompanyFromSheet('1zbF_72YnsjlXTbz1eHY2l8ygyOan86dVlSBdaNKlW5k');
-    res.json(data);
+    let data = await getDataFromSheet('1GI7rgBl2ziVPUR-wtK-7E2-psdIAOywjAf5N2IJANBI');
+    data.shift();
+    const filteredData = data.filter(row => row[6].toLowerCase() === option);
+    if (option === "all") {
+        data.shift();
+        res.json(data);
+    }
+    else {
+        res.json(filteredData);
+    }
 });
 
 app.listen(5000, () => {
